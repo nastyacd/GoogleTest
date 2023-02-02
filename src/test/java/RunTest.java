@@ -30,7 +30,7 @@ public class RunTest {
     @Test
     public void testInvalid() {
 
-        $(By.xpath("//input[@name='q']")).setValue("Погода").pressEnter();
+        $(By.xpath("//input[@name='q']")).setValue("Погода столица").pressEnter();
         $(By.xpath("//span[contains(text(),'Результаты')]/..")).shouldBe(Condition.exist);
         String result = $(By.xpath("//span[contains(text(),'Результаты')]/..")).getText();
         System.out.println(result);
