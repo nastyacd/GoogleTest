@@ -33,7 +33,7 @@ public class RunTest {
         $(By.xpath("//input[@name='q']")).setValue("Погода столица").pressEnter();
         $(By.xpath("//span[contains(text(),'Результаты')]/..")).shouldBe(Condition.exist);
         String result = $(By.xpath("//span[contains(text(),'Результаты')]/..")).getText();
-        System.out.println(result);
+
         result = result.replace("Результаты: ", "").trim();
         System.out.println(result);
         Assert.assertEquals("Ошибка, необходимы результаты погоды в г. Москва", "Москва", result);
