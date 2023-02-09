@@ -1,3 +1,5 @@
+package tests;
+
 import com.codeborne.selenide.Condition;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
@@ -7,7 +9,7 @@ import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.*;
 
-public class RunTest {
+public class RunTests {
     @BeforeEach
     public void beforeEach() {
         open("https://www.google.com/");
