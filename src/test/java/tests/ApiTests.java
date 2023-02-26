@@ -53,5 +53,6 @@ public class ApiTests {
     @Test
     public void jiraTest() {
         Cookies cookies = authorizationJira("aosokina","Qwerty123");
+        getTaskJira("TEST-26622", cookies);
     }
 }

@@ -90,9 +90,20 @@ public class ApiSteps {
                 .when()
                 .post("/rest/gadget/1.0/login")
                 .then()
-                .log().all()
                 .extract()
                 .response();
        return response.detailedCookies();
+    }
+
+    public static void getTaskJira(String task, Cookies cookies) {
+        Response response = given()
+                .baseUri("https://edujira.ifellow.ru")
+                .cookies(cookies)
+                .when()
+                .get("/browse/" + task)
+                .then()
+                .extract()
+                .response();
+        Assert.assertEquals("Ошибка статус-кода", 200, response.getStatusCode());
     }
 }
