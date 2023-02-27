@@ -1,7 +1,9 @@
 package ApiSteps;
 
+import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.Cookies;
 import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
 import org.json.JSONObject;
 import org.junit.Assert;
 
@@ -16,10 +18,14 @@ public class ApiSteps {
     public static int episode;
     public static String characterNum;
 
+    private static RequestSpecification rickSpecification = new RequestSpecBuilder().setBaseUri("https://rickandmortyapi.com/api").build();
+    private static RequestSpecification reqresSpecification = new RequestSpecBuilder().setBaseUri("https://reqres.in").setContentType("application/json").build();
+    private static RequestSpecification jiraSpecification = new RequestSpecBuilder().setBaseUri("https://edujira.ifellow.ru").setContentType("application/x-www-form-urlencoded").build();
+
     public static String getCharacter(Integer id) {
 
         Response gettingInfo = given()
-                .baseUri("https://rickandmortyapi.com/api")
+                .spec(rickSpecification)
                 .when()
                 .get("/character/" + id)
                 .then()
@@ -35,7 +41,7 @@ public class ApiSteps {
 
     public static void getLastEpisode() {
         Response gettingLastEpisode = given()
-                .baseUri("https://rickandmortyapi.com/api")
+                .spec(rickSpecification)
                 .when()
                 .get("/character/" + charId)
                 .then()
@@ -48,7 +54,7 @@ public class ApiSteps {
 
     public static String getLastCharacter() {
         Response gettingLastCharacter = given()
-                .baseUri("https://rickandmortyapi.com/api")
+                .spec(rickSpecification)
                 .when()
                 .get("/episode/" + (episode + 1))
                 .then()
@@ -64,8 +70,7 @@ public class ApiSteps {
     public static String postClient(String client) {
 
         Response clientInfo = given()
-                .baseUri("https://reqres.in")
-                .contentType("application/json")
+                .spec(reqresSpecification)
                 .body(client)
                 .when()
                 .post("/api/users")
@@ -79,8 +84,7 @@ public class ApiSteps {
     public static String putClient(String client, String id) {
 
         Response clientInfo = given()
-                .baseUri("https://reqres.in")
-                .contentType("application/json")
+                .spec(reqresSpecification)
                 .body(client)
                 .when()
                 .put("/api/users/" + id)
@@ -99,8 +103,7 @@ public class ApiSteps {
         formParam.put("os_password", pass);
 
         Response response = given()
-                .baseUri("https://edujira.ifellow.ru")
-                .contentType("application/x-www-form-urlencoded")
+                .spec(jiraSpecification)
                 .formParams(formParam)
                 .when()
                 .post("/rest/gadget/1.0/login")
@@ -112,7 +115,7 @@ public class ApiSteps {
 
     public static void getTaskJira(String task, Cookies cookies) {
         Response response = given()
-                .baseUri("https://edujira.ifellow.ru")
+                .spec(jiraSpecification)
                 .cookies(cookies)
                 .when()
                 .get("/browse/" + task)

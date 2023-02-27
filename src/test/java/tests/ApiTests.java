@@ -40,6 +40,7 @@ public class ApiTests {
         }
 
         String answer = postClient(client);
+
         String clientName = new JSONObject(answer).get("name").toString();
         String clientJob = new JSONObject(answer).get("job").toString();
         String clientId = new JSONObject(answer).get("id").toString();
@@ -50,10 +51,10 @@ public class ApiTests {
         Assert.assertEquals("Разное действие", clientJob, clientJobFile);
 
 
-
+        // создаем новый файл с измененными полями
         String clientNew = "";
         try {
-            clientNew = new String(Files.readAllBytes(Paths.get("src/test/resources/client2.json")));
+            clientNew = new String(Files.readAllBytes(Paths.get("src/test/resources/clientNew.json")));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -62,8 +63,13 @@ public class ApiTests {
 
         String clientNameNew = new JSONObject(answerNew).get("name").toString();
         String clientJobNew = new JSONObject(answerNew).get("job").toString();
-        Assert.assertEquals("Разные названия", clientNameNew, clientName);
-        Assert.assertEquals("Разное действие", clientJobNew, clientJob);
+
+
+        clientNameFile = new JSONObject(clientNew).get("name").toString();
+        clientJobFile = new JSONObject(clientNew).get("job").toString();
+
+        Assert.assertEquals("Разные названия", clientNameFile, clientNameNew);
+        Assert.assertEquals("Разное действие", clientJobFile, clientJobNew);
 
     }
 
