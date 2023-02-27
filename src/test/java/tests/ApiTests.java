@@ -42,12 +42,29 @@ public class ApiTests {
         String answer = postClient(client);
         String clientName = new JSONObject(answer).get("name").toString();
         String clientJob = new JSONObject(answer).get("job").toString();
+        String clientId = new JSONObject(answer).get("id").toString();
 
         String clientNameFile = new JSONObject(client).get("name").toString();
         String clientJobFile = new JSONObject(client).get("job").toString();
-
         Assert.assertEquals("Разные названия", clientName, clientNameFile);
         Assert.assertEquals("Разное действие", clientJob, clientJobFile);
+
+
+
+        String clientNew = "";
+        try {
+            clientNew = new String(Files.readAllBytes(Paths.get("src/test/resources/client2.json")));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        String answerNew = putClient(clientNew, clientId);
+
+        String clientNameNew = new JSONObject(answerNew).get("name").toString();
+        String clientJobNew = new JSONObject(answerNew).get("job").toString();
+        Assert.assertEquals("Разные названия", clientNameNew, clientName);
+        Assert.assertEquals("Разное действие", clientJobNew, clientJob);
+
     }
 
     @Test

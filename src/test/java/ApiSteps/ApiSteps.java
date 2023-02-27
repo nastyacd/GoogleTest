@@ -76,6 +76,21 @@ public class ApiSteps {
         return clientInfo.getBody().asString();
     }
 
+    public static String putClient(String client, String id) {
+
+        Response clientInfo = given()
+                .baseUri("https://reqres.in")
+                .contentType("application/json")
+                .body(client)
+                .when()
+                .put("/api/users/" + id)
+                .then()
+                .extract()
+                .response();
+        Assert.assertEquals("Ошибка статус-кода", 200, clientInfo.getStatusCode());
+        return clientInfo.getBody().asString();
+    }
+
 
     public static Cookies authorizationJira(String login, String pass) {
 
