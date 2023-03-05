@@ -1,9 +1,12 @@
 package tests;
 
+import ApiSteps.ApiHooks;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import io.restassured.http.Cookies;
 import org.json.JSONObject;
 import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -11,10 +14,12 @@ import java.nio.file.Paths;
 
 import static ApiSteps.ApiSteps.*;
 
-public class ApiTests {
+@Epic("Api тесты")
+public class ApiTests extends ApiHooks {
+
+    @Feature("Тесты Рик и морти")
     @Test
     public void mortyTest() {
-
         String mortyInfo = getCharacter(2);
         getLastEpisode();
         String character = getLastCharacter();
@@ -30,6 +35,7 @@ public class ApiTests {
         Assert.assertEquals("Разные локации", locationLastCharacter, locationMorty);
     }
 
+    @Feature("Тесты reqres")
     @Test
     public void reqresTest() {
         String client = "";
@@ -37,6 +43,7 @@ public class ApiTests {
             client = new String(Files.readAllBytes(Paths.get("src/test/resources/client.json")));
         } catch (IOException e) {
             e.printStackTrace();
+            throw new RuntimeException(e);
         }
 
         String answer = postClient(client);
@@ -57,6 +64,7 @@ public class ApiTests {
             clientNew = new String(Files.readAllBytes(Paths.get("src/test/resources/clientNew.json")));
         } catch (IOException e) {
             e.printStackTrace();
+            throw new RuntimeException(e);
         }
 
         String answerNew = putClient(clientNew, clientId);
@@ -73,6 +81,7 @@ public class ApiTests {
 
     }
 
+    @Feature("Тесты Jira")
     @Test
     public void jiraTest() {
         Cookies cookies = authorizationJira("aosokina","Qwerty123");

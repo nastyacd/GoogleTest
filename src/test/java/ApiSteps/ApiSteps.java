@@ -1,5 +1,8 @@
 package ApiSteps;
 
+import io.qameta.allure.Step;
+import io.qameta.allure.restassured.AllureRestAssured;
+import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.Cookies;
 import io.restassured.response.Response;
@@ -22,8 +25,8 @@ public class ApiSteps {
     private static RequestSpecification reqresSpecification = new RequestSpecBuilder().setBaseUri("https://reqres.in").setContentType("application/json").build();
     private static RequestSpecification jiraSpecification = new RequestSpecBuilder().setBaseUri("https://edujira.ifellow.ru").setContentType("application/x-www-form-urlencoded").build();
 
+    @Step("Получаем персоонажа по номеру: {id}")
     public static String getCharacter(Integer id) {
-
         Response gettingInfo = given()
                 .spec(rickSpecification)
                 .when()
@@ -39,6 +42,7 @@ public class ApiSteps {
     }
 
 
+    @Step("Получаем последний эпизод")
     public static void getLastEpisode() {
         Response gettingLastEpisode = given()
                 .spec(rickSpecification)
@@ -52,6 +56,7 @@ public class ApiSteps {
 
     }
 
+    @Step("Получаем последнего персоонажа")
     public static String getLastCharacter() {
         Response gettingLastCharacter = given()
                 .spec(rickSpecification)
@@ -67,6 +72,7 @@ public class ApiSteps {
         return characterNum;
     }
 
+    @Step("Создаем клиена {client}")
     public static String postClient(String client) {
 
         Response clientInfo = given()
@@ -81,6 +87,7 @@ public class ApiSteps {
         return clientInfo.getBody().asString();
     }
 
+    @Step("Изменяем клиента с id = {id}")
     public static String putClient(String client, String id) {
 
         Response clientInfo = given()
@@ -95,7 +102,7 @@ public class ApiSteps {
         return clientInfo.getBody().asString();
     }
 
-
+    @Step("Авторизуемся в Джиру под пользователем {login}")
     public static Cookies authorizationJira(String login, String pass) {
 
         Map<String, String> formParam = new HashMap<>();
@@ -113,6 +120,7 @@ public class ApiSteps {
        return response.detailedCookies();
     }
 
+    @Step("Получаем информацию по задаче {task}")
     public static void getTaskJira(String task, Cookies cookies) {
         Response response = given()
                 .spec(jiraSpecification)
