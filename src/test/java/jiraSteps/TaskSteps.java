@@ -1,7 +1,7 @@
 package jiraSteps;
 
 import com.codeborne.selenide.Condition;
-import io.qameta.allure.Step;
+import io.cucumber.java.ru.И;
 import org.junit.Assert;
 
 import java.time.Duration;
@@ -11,7 +11,7 @@ import static com.codeborne.selenide.Selenide.sleep;
 
 public class TaskSteps {
 
-    @Step("Проверяем информацию в задаче")
+    @И("^проверяем информацию в задаче со статусом \"([^\"]*)\" и версией \"([^\"]*)\"$")
     public static void checkTaskInformation(String taskStatus, String taskVersion) {
         String status = statusTask.getText().trim();
         String version = versionTask.getText().trim();
@@ -19,7 +19,7 @@ public class TaskSteps {
         Assert.assertEquals("Неправильная привязка затронутой версии", taskVersion, version);
     }
 
-    @Step("Закрываем задачу")
+    @И("^закрываем задачу$")
     public static void goToCloseStatus() {
         needToDo.click();
         Assert.assertEquals("Неверный статус", "СДЕЛАТЬ", statusTask.getText());

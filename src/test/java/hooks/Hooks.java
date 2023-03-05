@@ -1,22 +1,26 @@
 package hooks;
 
 import com.codeborne.selenide.Configuration;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
+import com.codeborne.selenide.logevents.SelenideLogger;
+import io.cucumber.java.After;
+import io.cucumber.java.Before;
+import io.qameta.allure.selenide.AllureSelenide;
 
 import static jiraSteps.AuthorizationSteps.authorizationStep;
 import static com.codeborne.selenide.Selenide.closeWebDriver;
 import static com.codeborne.selenide.Selenide.open;
 
 public class Hooks {
-    @BeforeEach
+    @Before
     public void beforeEach() {
         Configuration.startMaximized = true;
+        SelenideLogger.addListener("AllureSelenide", new AllureSelenide().screenshots(true).savePageSource(true));
+
         open("https://edujira.ifellow.ru/");
         authorizationStep("aosokina", "Qwerty123");
     }
 
-    @AfterEach
+    @After
     public void afterEach() {
         closeWebDriver();
     }
