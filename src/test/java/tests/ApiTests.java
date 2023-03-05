@@ -1,6 +1,6 @@
 package tests;
 
-import ApiSteps.ApiHooks;
+import hooks.ApiHooks;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.restassured.http.Cookies;
@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import static ApiSteps.ApiSteps.*;
+import static steps.ApiSteps.*;
 
 @Epic("Api тесты")
 public class ApiTests extends ApiHooks {

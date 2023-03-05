@@ -1,8 +1,6 @@
-package ApiSteps;
+package steps;
 
 import io.qameta.allure.Step;
-import io.qameta.allure.restassured.AllureRestAssured;
-import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.Cookies;
 import io.restassured.response.Response;
