@@ -25,14 +25,7 @@ public class ApiTests extends ApiHooks {
         String character = getLastCharacter();
         String lastCharacterInfo = getCharacter(Integer.valueOf(character));
 
-        String speciesLastCharacter = new JSONObject(lastCharacterInfo).get("species").toString();
-        String speciesMorty = new JSONObject(mortyInfo).get("species").toString();
-
-        String locationLastCharacter = new JSONObject(lastCharacterInfo).getJSONObject("location").get("name").toString();
-        String locationMorty = new JSONObject(mortyInfo).getJSONObject("location").get("name").toString();
-
-        Assert.assertEquals("Разные расы", speciesLastCharacter, speciesMorty);
-        Assert.assertEquals("Разные локации", locationLastCharacter, locationMorty);
+        checkSpeciesAndLocation(mortyInfo, lastCharacterInfo);
     }
 
     @Feature("Тесты reqres")

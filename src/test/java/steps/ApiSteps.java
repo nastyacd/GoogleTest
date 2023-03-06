@@ -130,4 +130,16 @@ public class ApiSteps {
                 .response();
         Assert.assertEquals("Ошибка статус-кода", 200, response.getStatusCode());
     }
+
+    @Step("Сравниваем рассы и локации у Морти и персоонажа")
+    public static void checkSpeciesAndLocation(String mortyInfo, String lastCharacterInfo) {
+        String speciesLastCharacter = new JSONObject(lastCharacterInfo).get("species").toString();
+        String speciesMorty = new JSONObject(mortyInfo).get("species").toString();
+
+        String locationLastCharacter = new JSONObject(lastCharacterInfo).getJSONObject("location").get("name").toString();
+        String locationMorty = new JSONObject(mortyInfo).getJSONObject("location").get("name").toString();
+
+        Assert.assertEquals("Разные расы", speciesLastCharacter, speciesMorty);
+        Assert.assertEquals("Разные локации", locationLastCharacter, locationMorty);
+    }
 }
